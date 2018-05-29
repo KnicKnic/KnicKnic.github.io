@@ -23,6 +23,7 @@
       // Otherwise, leave segmentCount as 0.
       var segmentCount = 0;
       var l = window.location;
+      if(l.pathname.includes('drawpile-admin-test')){segmentCount = 1;}
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
         l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?p=/' +
