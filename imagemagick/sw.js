@@ -1,19 +1,14 @@
 // version 1
 // v0
-var prefix_name = "croppy_"
-var CACHE_NAME = prefix_name + 'cache_1_0_7';
+var prefix_name = "imagemagick_"
+var CACHE_NAME = prefix_name + 'cache_1_0_4';
 var cacheWhitelist = [CACHE_NAME];
 var urlsToCache = [
     './',
     './index.html',
-    './images/croppy.png',
-    './manifest.json',
     './magick.js',
     './magick.wasm',
     './magickApi.js',
-    './instructions.html',
-   // './copyright.html',
-    './favicon.png',
     'https://cdn.jsdelivr.net/g/filesaver.js',
     'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js'
 ];
