@@ -1,7 +1,7 @@
 // version 1
 // v0
 var prefix_name = "croppy_"
-var CACHE_NAME = prefix_name + 'cache_1_0_7';
+var CACHE_NAME = prefix_name + 'cache_1_0';
 var cacheWhitelist = [CACHE_NAME];
 var urlsToCache = [
     './',
@@ -12,10 +12,10 @@ var urlsToCache = [
     './magick.wasm',
     './magickApi.js',
     './instructions.html',
-   // './copyright.html',
     './favicon.png',
     'https://cdn.jsdelivr.net/g/filesaver.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js'
+    'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js',
+    "https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"
 ];
 // var urlsToCache=[];
 
