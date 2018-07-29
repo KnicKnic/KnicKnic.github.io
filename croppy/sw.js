@@ -17,7 +17,6 @@ var urlsToCache = [
     'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js',
     "https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"
 ];
-// var urlsToCache=[];
 
 self.addEventListener('activate', function(event) {  
     event.waitUntil(
