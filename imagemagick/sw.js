@@ -13,7 +13,6 @@ var urlsToCache = [
     'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js'
 ];
 // var urlsToCache=[];
-
 self.addEventListener('activate', function(event) {  
     event.waitUntil(
       caches.keys().then(function(cacheNames) {
