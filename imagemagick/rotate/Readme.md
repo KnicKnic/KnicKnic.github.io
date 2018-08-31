@@ -26,4 +26,4 @@ In index.html see relevant portions called out below "..." means I deleted code
 ``` 
 
 ## Deploy
-copy a release (magickApi.js, magick.js, magick.wasm) along with this index.html into a webserver.
+copy a release (magickApi.js, magick.js, magick.wasm) along with this index.html & rotate.png into a webserver.

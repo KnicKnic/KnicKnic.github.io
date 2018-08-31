@@ -85,7 +85,23 @@
     //import the library to talk to imagemagick
     import * as Magick from './magickApi.js';
 
+    // various html elements
+    let advancedOptions = document.getElementById('advancedOptions');
+    let descriptionTxt = document.getElementById("descriptionTxt");
+    let descriptionInput = document.getElementById("descriptionInput");
+    let magickCommand = document.getElementById("magickCommand");
+    let autoZip = document.getElementById("autoZip");
+    let magickEachPicture = document.getElementById("magickEachPicture");
+    let showAdvanced = document.getElementById("showAdvanced");
+    let shareUrl = document.getElementById("shareUrl");
+    let generateZip = document.getElementById("GenerateZip")
+    let yourFiles = document.getElementById("your-files");
+    let advancedOptionsButton = document.getElementById('advancedOptionsButton');
+    let imageHolder = document.getElementById('imageHolder');
+    let filesRemaining = document.getElementById("files-remaining");
+    let processing = document.getElementById("Processing");
 
+    //service worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('sw.js').then(function (registration) {
@@ -110,22 +126,6 @@
         });
       });
     }
-
-    // various html elements
-    let advancedOptions = document.getElementById('advancedOptions');
-    let descriptionTxt = document.getElementById("descriptionTxt");
-    let descriptionInput = document.getElementById("descriptionInput");
-    let magickCommand = document.getElementById("magickCommand");
-    let autoZip = document.getElementById("autoZip");
-    let magickEachPicture = document.getElementById("magickEachPicture");
-    let showAdvanced = document.getElementById("showAdvanced");
-    let shareUrl = document.getElementById("shareUrl");
-    let generateZip = document.getElementById("GenerateZip")
-    let yourFiles = document.getElementById("your-files");
-    let advancedOptionsButton = document.getElementById('advancedOptionsButton');
-    let imageHolder = document.getElementById('imageHolder');
-    let filesRemaining = document.getElementById("files-remaining");
-    let processing = document.getElementById("Processing");
 
 
     // deal with input urls
