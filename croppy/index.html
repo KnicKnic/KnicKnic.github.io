@@ -97,11 +97,12 @@
       outline: 3px dashed blue;
       outline-offset: -3px;
     }
-  </style>
+  </style>  
+  
+  <!-- redirect for old browsers -->
+  <script nomodule type="application/javascript">window.location = "old.html"</script>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  
-  <script nomodule type="application/javascript">window.location = "old.html"</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123529756-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -206,6 +207,22 @@
       });
     }
 
+    function GenerateZipItemName(name){
+      if(!doLine.checked || !doTapas.checked)
+      {
+        return name;
+      }
+      if(name.endsWith('.jpg'))
+      {
+        return 'webtoon/'+name;
+      }
+      else if(name.endsWith('.png'))
+      {
+        return 'tapas/'+name;
+      }
+      return name;
+    }
+
     function GenerateZip() {
       let zip = new JSZip();
 
@@ -214,7 +231,7 @@
         for (let i = 0; i < children.length; i++) {
           let child = children[i].wasmResponse;
 
-          zip.file(child['name'], child['blob'])
+          zip.file(GenerateZipItemName(child['name']), child['blob'])
         }
         zip.generateAsync({ type: "blob" })
           .then(function (content) {
