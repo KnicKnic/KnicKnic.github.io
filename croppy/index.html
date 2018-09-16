@@ -314,7 +314,7 @@
         let failedProcessing = false;
 
         let firstFileName = files[0].name;
-        let extension_first_file = firstFileName.substring(1, firstFileName.lastIndexOf('.'));
+        let extension_first_file = firstFileName.substring(1+firstFileName.lastIndexOf('.'))
         let conversion_destination = ''
         if (doLine.checked) {
           conversion_destination = 'Line'
