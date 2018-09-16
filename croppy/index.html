@@ -285,7 +285,10 @@
 
     function DoSomeTrack(category, action, name){
       try{
-        _paq.push(['trackEvent', category, action, name]);
+        _paq.push(['trackEvent', category, action, name]);        
+      }catch(e){}
+      try{
+        ga('send','event', category, action, name);        
       }catch(e){}
     }
     function CompletedImage(category, action, name){
