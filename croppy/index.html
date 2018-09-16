@@ -288,8 +288,10 @@
         _paq.push(['trackEvent', category, action, name]);        
       }catch(e){}
       try{
+        console.log('about to send GA');
         ga('send','event', category, action, name);        
-      }catch(e){}
+        console.log('sent to GA');
+      }catch(e){console.log(e)}
     }
     function CompletedImage(category, action, name){
       DoSomeTrack(category, action, name);
