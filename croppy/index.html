@@ -289,8 +289,8 @@
       }catch(e){}
       try{
         console.log('about to send GA');
-        gtag('event', category, {
-          'event_category': action,
+        gtag('event', action, {
+          'event_category': category,
           'event_label': name,
         });   
         console.log('sent to GA');
