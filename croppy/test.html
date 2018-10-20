@@ -20,6 +20,35 @@
 
         import * as Magick from './magickApi.js';
 
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js', {
+          updateViaCache: 'none',
+          // https://developers.google.com/web/updates/2018/06/fresher-sw
+        }).then(function (registration) {
+          let refreshing;
+          navigator.serviceWorker.addEventListener('controllerchange',
+            function () {
+              if (refreshing) return;
+              refreshing = true;
+            //   window.location.reload();
+            }
+          );
+
+          if (registration.active) {
+            registration.active.addEventListener('message', function (msg) {
+              alert(msg);
+              location.reload();
+            });
+          }
+        }, function (err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+        
+
         function generateMessage() {
             window.parent.postMessage("croppy is done!", "*")
         }
