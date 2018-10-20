@@ -1,11 +1,4 @@
-//javascript:(function(){var jsCode = document.createElement('script');jsCode.setAttribute('src', 'http://localhost:9999/add_croppy.js');document.body.appendChild(jsCode);}());
-
 //javascript:(function(){var jsCode = document.createElement('script');jsCode.setAttribute('type','module');jsCode.setAttribute('src', 'https://knicknic.github.io/croppy/add_croppy.js');document.body.appendChild(jsCode);}());
-
-
-// alert("Started");
-
-
 
 function receiveCroppyMessage(event) {
     // Do we trust the sender of this message?  (might be
@@ -100,15 +93,26 @@ var processFilePromise = CreatePromiseEvent();
 
 //update code such that only working if doing upload queue. look at elements in self
 UploadQueue.prototype._addQueue = function(files) {
+    var ret = true;
     var self = this;
-    processFilePromise = CreatePromiseEvent();
-    let process = processFiles(files);
-    processFilePromise.then(files => {
-        self._oldQueue(files);
-        
-        var fileSelect = browseButtonInstance.getFileSelect().get(0);
-        fileSelect.value = "";
-    });
+
+    // do not want to convert thumbnail code
+    if(this._episodeObject._episodeUploadQueue == this)
+    {
+        processFilePromise = CreatePromiseEvent();
+        let process = processFiles(files);
+        processFilePromise.then(files => {
+            ret = self._oldQueue(files);
+            
+            var fileSelect = browseButtonInstance.getFileSelect().get(0);
+            fileSelect.value = "";
+        });
+    }
+    else
+    {
+        ret = self._oldQueue(files);
+    }
+    return ret;
 };
 
 

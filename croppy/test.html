@@ -6,10 +6,15 @@
                 <title>test</title>
               </head>
 <body>
-        javascript:(function(){var jsCode = document.createElement('script');jsCode.setAttribute('type','module');jsCode.setAttribute('src', 'https://knicknic.github.io/croppy/add_croppy.js');document.body.appendChild(jsCode);}());
-
-    <!-- <button onclick='generateMessage()'>Click me</button> -->
-    <!-- <script type='module'> -->
+    
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    <p>
+    javascript:(function(){var jsCode =
+    document.createElement('script');jsCode.setAttribute('type','module');jsCode.setAttribute('src',
+    'https://knicknic.github.io/croppy/add_croppy.js');document.body.appendChild(jsCode);}());
+    </p>
     <script type='module'>
 
         import * as Magick from './magickApi.js';
@@ -18,6 +23,11 @@
             window.parent.postMessage("croppy is done!", "*")
         }
 
+        function AlertIt(confirmText, destination) {
+            var answer = confirm(confirmText)
+            if (answer)
+                window.location = destination;
+        }
 
         var processesFiles = async function (files) {
 
@@ -54,7 +64,6 @@
 
                             AlertIt("Error croppy could not format your file, old croppy may be up to the task, hit ok to go to https://old.croppy.duckdns.org", "https://old.croppy.duckdns.org");
                         }
-
                     }
 
                 }
@@ -93,9 +102,7 @@
 
         }
         window.addEventListener('message', receiveRequestMessage, false);
-    </script>
-    <script>
-
+        toastr.info('Loaded croppy extension');
     </script>
 </body>
 
