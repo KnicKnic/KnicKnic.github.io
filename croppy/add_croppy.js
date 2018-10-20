@@ -96,11 +96,13 @@ var processFiles = async function (files) {
     iframe.contentWindow.postMessage(toProcess, '*')
 };
 
-var oldQueue = UploadQueue.prototype._addQueue;
+
+UploadQueue.prototype._oldQueue = UploadQueue.prototype._addQueue;
 var processFilePromise = CreatePromiseEvent();
 
 UploadQueue.prototype._addQueue = (files) => {
+    var self = this;
     processFilePromise = CreatePromiseEvent();
     let process = processFiles(files);
-    processFilePromise.then(files => oldQueue(files));
+    processFilePromise.then(files => self._oldQueue(files));
 };
