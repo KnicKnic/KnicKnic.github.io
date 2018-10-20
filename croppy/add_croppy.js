@@ -46,12 +46,6 @@ function DoSend() {
     iframe.contentWindow.postMessage('host', '*')
 }
 
-var button = document.createElement('button');
-// iframe.style.display = "none";
-button.onclick = DoSend;
-button.innerHTML = "hello";
-document.body.appendChild(button);
-
 
 function CreatePromiseEvent() {
     let resolver;
