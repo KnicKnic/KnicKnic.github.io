@@ -57,13 +57,14 @@
                     }
 
                 }
-                let processedImages = processedImagesLine;
-                for (let file of processedImages) {
-                    let fileItem = file['blob'];
-                    fileItem = fileItem.slice(0, fileItem.size, "image/jpeg");
-                    fileItem.name = file['name'];
-                    fileObjects.push(fileItem);
-                }
+                fileObjects = processedImagesLine;
+                // let processedImages = processedImagesLine;
+                // for (let file of processedImages) {
+                //     let fileItem = file['blob'];
+                //     fileItem = fileItem.slice(0, fileItem.size, "image/jpeg");
+                //     fileItem.name = file['name'];
+                //     fileObjects.push(fileItem);
+                // }
             }
             window.parent.postMessage({ message: "croppy is done!", data: fileObjects }, "*");
         }
