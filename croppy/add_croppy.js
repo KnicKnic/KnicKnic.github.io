@@ -140,13 +140,13 @@ UploadQueue.prototype._uploadFileForHTML5 = function(oProp) {
             sKey: sKey
         })
     }, this), false);
-    oUpload.addEventListener("load", $.proxy(function() {
+    var proxyFunc = $.proxy(function() {
         // var that = this;
         // var func = arguments.callee;
         if (oXHR.readyState !== 4) {
-        //     setTimeout(function() {
-        //         func.call(that)
-        //     }, 0);
+            setTimeout(function() {
+                proxyFunc();
+            }, 0);
             return
         }
         if (oXHR.status === 200) {
@@ -154,7 +154,8 @@ UploadQueue.prototype._uploadFileForHTML5 = function(oProp) {
         } else {
             this._setDoneState(sKey, oFile, "uploadError", 0, 0, this._states.ERROR)
         }
-    }, this), false);
+    }, this);
+    oUpload.addEventListener("load", proxyFunc, false);
     oUpload.addEventListener("error", $.proxy(function() {
         this._setDoneState(sKey, oFile, "uploadError", 0, 0, this._states.ERROR)
     }, this), false);
