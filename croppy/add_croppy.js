@@ -100,7 +100,7 @@ var processFiles = async function (files) {
 UploadQueue.prototype._oldQueue = UploadQueue.prototype._addQueue;
 var processFilePromise = CreatePromiseEvent();
 
-UploadQueue.prototype._addQueue = (files) => {
+UploadQueue.prototype._addQueue = function(files) {
     var self = this;
     processFilePromise = CreatePromiseEvent();
     let process = processFiles(files);
