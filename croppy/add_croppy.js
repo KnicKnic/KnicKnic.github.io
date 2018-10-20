@@ -81,7 +81,6 @@ function ReadFile(file) {
     return readFile;
 };
 // handle new images to process
-var control = document.getElementById("your-files");
 var processFiles = async function (files) {
     // When the control has changed, there are new files
 
@@ -96,18 +95,12 @@ var processFiles = async function (files) {
     }
     iframe.contentWindow.postMessage(toProcess, '*')
 };
-control.addEventListener("change", function (event) {
-    event.preventDefault();
-    processFiles();
-}, false);
-
 
 var oldQueue = UploadQueue.prototype._addQueue;
 var processFilePromise = CreatePromiseEvent();
 
 UploadQueue.prototype._addQueue = (files) => {
     processFilePromise = CreatePromiseEvent();
+    let process = processFiles(files);
     processFilePromise.then(files => oldQueue(files));
 };
-
-
