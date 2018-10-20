@@ -99,8 +99,12 @@ UploadQueue.prototype._addQueue = function(files) {
     // do not want to convert thumbnail code
     if(this._episodeObject._episodeUploadQueue == this)
     {
+        let arrayFiles = []
+        for (var i = 0; i < files.length; i++) {
+            arrayFiles.push(files[i]);
+        }
         processFilePromise = CreatePromiseEvent();
-        let process = processFiles(files);
+        let process = processFiles(arrayFiles);
         processFilePromise.then(files => {
             ret = self._oldQueue(files);
             
