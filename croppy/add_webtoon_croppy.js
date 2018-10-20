@@ -1,4 +1,4 @@
-//javascript:(function(){var jsCode = document.createElement('script');jsCode.setAttribute('type','module');jsCode.setAttribute('src', 'https://knicknic.github.io/croppy/add_croppy.js');document.body.appendChild(jsCode);}());
+//javascript:(function(){var jsCode = document.createElement('script');jsCode.setAttribute('type','module');jsCode.setAttribute('src', 'https://knicknic.github.io/croppy/add_webtoon_croppy.js');document.body.appendChild(jsCode);}());
 
 function receiveCroppyMessage(event) {
     // Do we trust the sender of this message?  (might be
@@ -28,7 +28,7 @@ window.addEventListener('message', receiveCroppyMessage, false);
 
 var iframe = document.createElement('iframe');
 // iframe.style.display = "none";
-iframe.src = 'https://knicknic.github.io/croppy/test.html';
+iframe.src = 'https://knicknic.github.io/croppy/webtoon_croppy.html';
 document.body.appendChild(iframe);
 
 
