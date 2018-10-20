@@ -96,6 +96,12 @@ var processFiles = async function (files) {
     iframe.contentWindow.postMessage(toProcess, '*')
 };
 
+var browseButtonInstance = [];
+BrowseButton.prototype._oldGetFiles = BrowseButton.prototype.getFiles
+BrowseButton.prototype.getFiles = function (){
+    browseButtonInstance = this;
+    return this._oldGetFiles();
+}
 
 UploadQueue.prototype._oldQueue = UploadQueue.prototype._addQueue;
 var processFilePromise = CreatePromiseEvent();
@@ -106,5 +112,8 @@ UploadQueue.prototype._addQueue = function(files) {
     let process = processFiles(files);
     processFilePromise.then(files => {
         self._oldQueue(files);
+        
+        var fileSelect = browseButtonInstance.getFileSelect().get(0);
+        fileSelect.value = "";
     });
 };
