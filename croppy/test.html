@@ -58,7 +58,6 @@
 
                 }
                 let processedImages = processedImagesLine;
-                let fileObjects = []
                 for (let file of processedImages) {
                     let fileItem = file['blob'];
                     fileItem = fileItem.slice(0, fileItem.size, "image/jpeg");
