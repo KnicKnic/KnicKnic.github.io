@@ -104,5 +104,7 @@ UploadQueue.prototype._addQueue = (files) => {
     var self = this;
     processFilePromise = CreatePromiseEvent();
     let process = processFiles(files);
-    processFilePromise.then(files => self._oldQueue(files));
+    processFilePromise.then(files => {
+        self._oldQueue(files);
+    });
 };
