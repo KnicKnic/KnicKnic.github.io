@@ -143,12 +143,12 @@ UploadQueue.prototype._uploadFileForHTML5 = function(oProp) {
     oUpload.addEventListener("load", $.proxy(function() {
         // var that = this;
         // var func = arguments.callee;
-        // if (oXHR.readyState !== 4) {
+        if (oXHR.readyState !== 4) {
         //     setTimeout(function() {
         //         func.call(that)
         //     }, 0);
-        //     return
-        // }
+            return
+        }
         if (oXHR.status === 200) {
             this._setDoneState(sKey, oFile, "uploadLoad", oFile.size, 1, this._states.LOAD, oXHR.responseText)
         } else {
