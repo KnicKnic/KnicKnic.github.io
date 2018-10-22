@@ -103,6 +103,7 @@ UploadQueue.prototype._addQueue = function(files) {
         for (var i = 0; i < files.length; i++) {
             arrayFiles.push(files[i]);
         }
+        this.options.nParallel = 1;
         processFilePromise = CreatePromiseEvent();
         let process = processFiles(arrayFiles);
         processFilePromise.then(files => {
