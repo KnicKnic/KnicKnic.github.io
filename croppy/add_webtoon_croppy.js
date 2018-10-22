@@ -70,8 +70,9 @@ var processFiles = async function (files) {
     // When the control has changed, there are new files
 
     let len = files.length;
-    //if images
     let toProcess = []
+    
+    //if images
     if (len > 0) {
         for (let fileIndex = 0; fileIndex < files.length; ++fileIndex) {
             let [fileName, content] = await ReadFile(files[fileIndex]);
