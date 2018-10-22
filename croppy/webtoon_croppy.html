@@ -138,15 +138,10 @@
                             AlertIt("Error croppy could not format your file, old croppy may be up to the task, hit ok to go to https://old.croppy.duckdns.org", "https://old.croppy.duckdns.org");
                         }
                     }
-
                 }
                 fileObjects = processedImagesLine;
-                function CompletedImage(category, action, name) {
-                    DoSomeTrack(category, action, name);
-                    try {
-                        _paq.push(['trackGoal', 1]);
-                    } catch (e) { }
-                }
+                
+                CompletedImage("convert_complete", extension_first_file, 'Line');
             }
             window.parent.postMessage({ message: "croppy is done!", data: fileObjects }, "*");
         }
