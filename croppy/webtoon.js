@@ -78,12 +78,12 @@ export function _uploadFileForHTML5(oProp) {
         if (oXHR.status === 200) {
             let  logString = "UploadLoad, sKey: " + sKey + ", oFile: " + oFile.name + ",  oFile.size: " + oFile.size + ", state: " + this._states.LOAD + ", response: " + oXHR.responseText;
             console.log(logString); 
-            DoSomeTrack("webtoon", "upload_success", logstring);
+            DoSomeTrack("webtoon", "upload_success", logString);
             this._setDoneState(sKey, oFile, "uploadLoad", oFile.size, 1, this._states.LOAD, oXHR.responseText)
         } else {
             let logString = "UploadError, sKey: "+  sKey + ", oFile: " + oFile.name + ", status: " + oXHR.status;
             console.log(logString); 
-            DoSomeTrack("webtoon", "upload_fail", logstring);
+            DoSomeTrack("webtoon", "upload_fail", logString);
             this._setDoneState(sKey, oFile, "uploadError", 0, 0, this._states.ERROR)
         }
     }, this);
