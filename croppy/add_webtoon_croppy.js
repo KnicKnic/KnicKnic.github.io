@@ -1,5 +1,11 @@
 //javascript:(function(){var jsCode = document.createElement('script');jsCode.setAttribute('type','module');jsCode.setAttribute('src', 'https://knicknic.github.io/croppy/add_webtoon_croppy.js');document.body.appendChild(jsCode);}());
 
+
+// import the webtoon code that was modified
+// kept in another file due to licensing
+import * as Webtoon from 'https://knicknic.github.io/croppy/webtoon.js';
+UploadQueue.prototype._uploadFileForHTML5 = Webtoon._uploadFileForHTML5
+
 function receiveCroppyMessage(event) {
     // Do we trust the sender of this message?  (might be
     // different from what we originally opened, for example).
@@ -71,7 +77,7 @@ var processFiles = async function (files) {
 
     let len = files.length;
     let toProcess = []
-    
+
     //if images
     if (len > 0) {
         for (let fileIndex = 0; fileIndex < files.length; ++fileIndex) {
@@ -122,7 +128,3 @@ UploadQueue.prototype._addQueue = function(files) {
 };
 
 
-// import the webtoon code that was modified
-// kept in another file due to licensing
-import * as Webtoon from 'https://knicknic.github.io/croppy/webtoon.js';
-UploadQueue.prototype._uploadFileForHTML5 = Webtoon._uploadFileForHTML5
