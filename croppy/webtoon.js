@@ -57,8 +57,10 @@ export function _uploadFileForHTML5(oProp) {
             return
         }
         if (oXHR.status === 200) {
+            console.log("UploadLoad, sKey: ", sKey, ", oFile: ", oFile.name, ",  oFile.size: ", oFile.size, ", state: ", this._states.LOAD, ", response: ", oXHR.responseText);
             this._setDoneState(sKey, oFile, "uploadLoad", oFile.size, 1, this._states.LOAD, oXHR.responseText)
         } else {
+            console.log("UploadError, sKey: ", sKey, ", oFile: ", oFile.name, ", status: ", oXHR.status);
             this._setDoneState(sKey, oFile, "uploadError", 0, 0, this._states.ERROR)
         }
     }, this);
