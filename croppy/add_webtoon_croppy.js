@@ -1,5 +1,5 @@
 //javascript:(function(){var jsCode = document.createElement('script');jsCode.setAttribute('type','module');jsCode.setAttribute('src', 'https://knicknic.github.io/croppy/add_webtoon_croppy.js');document.body.appendChild(jsCode);}());
-
+//https://www.webtoons.com/en/challenge/spirit-contact/promo/viewer?title_no=233314&episode_no=1
 
 // import the webtoon code that was modified
 // kept in another file due to licensing
