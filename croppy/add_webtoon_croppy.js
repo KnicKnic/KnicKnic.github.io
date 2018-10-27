@@ -3,8 +3,8 @@
 
 // import the webtoon code that was modified
 // kept in another file due to licensing
-import * as Webtoon from 'https://knicknic.github.io/croppy/webtoon.js';
-UploadQueue.prototype._uploadFileForHTML5 = Webtoon._uploadFileForHTML5
+// import * as Webtoon from 'https://knicknic.github.io/croppy/webtoon.js';
+// UploadQueue.prototype._uploadFileForHTML5 = Webtoon._uploadFileForHTML5
 
 function receiveCroppyMessage(event) {
     // Do we trust the sender of this message?  (might be
@@ -16,8 +16,10 @@ function receiveCroppyMessage(event) {
     let fileObjects = []
     for (let file of event.data['data']) {
         let fileItem = file['blob'];
-        fileItem = fileItem.slice(0, fileItem.size, "image/jpeg");
-        fileItem.name = file['name'];
+        fileItem = new File([fileItem], file['name'], {
+            type: "image/jpeg",
+          });
+        // fileItem.name = file['name'];
         fileObjects.push(fileItem);
     }
 
