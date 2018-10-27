@@ -27,7 +27,7 @@ function receiveCroppyMessage(event) {
     processFilePromise['resolve'](fileObjects);
 }
 window.addEventListener('message', receiveCroppyMessage, false);
-
+var processFilePromise = CreatePromiseEvent();
 
 var iframe = document.createElement('iframe');
 // iframe.style.display = "none";
