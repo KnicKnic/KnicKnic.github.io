@@ -67,7 +67,7 @@ function ReadFile(file) {
 };
 // handle new images to process
 var processFiles = async function (files) {
-    var processFilePromise = CreatePromiseEvent();
+    processFilePromise = CreatePromiseEvent();
     // When the control has changed, there are new files
 
     let len = files.length;
