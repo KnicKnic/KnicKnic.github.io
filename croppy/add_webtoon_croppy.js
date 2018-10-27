@@ -39,12 +39,9 @@ var iframe = document.createElement('iframe');
 iframe.src = 'https://knicknic.github.io/croppy/webtoon_croppy.html';
 document.body.appendChild(iframe);
 
-
-
 function DoSend() {
     iframe.contentWindow.postMessage('host', '*')
 }
-
 
 function CreatePromiseEvent() {
     let resolver;
@@ -75,6 +72,7 @@ function ReadFile(file) {
 };
 // handle new images to process
 var processFiles = async function (files) {
+    var processFilePromise = CreatePromiseEvent();
     // When the control has changed, there are new files
 
     let len = files.length;
@@ -88,45 +86,69 @@ var processFiles = async function (files) {
         }
     }
     iframe.contentWindow.postMessage(toProcess, '*')
+    return await processFilePromise
 };
 
-var browseButtonInstance = [];
-BrowseButton.prototype._oldGetFiles = BrowseButton.prototype.getFiles
-BrowseButton.prototype.getFiles = function (){
-    browseButtonInstance = this;
-    return this._oldGetFiles();
+
+if( window.location.hostname == 'tapas.io')
+{
+    alert('not supported on tapas yet')
+
+    // // convert user file list into file array
+    // let arrayFiles = []
+    // for (var i = 0; i < files.length; i++) {
+    //     arrayFiles.push(files[i]);
+    // }
+
+    // // promise that has chunked files
+    // processFiles(arrayFiles).then(files => {
+    //     ret = self._oldQueue(files);
+        
+    //     var fileSelect = browseButtonInstance.getFileSelect().get(0);
+    //     fileSelect.value = "";
+    // });
+
+}
+else
+{
+    var browseButtonInstance = [];
+    BrowseButton.prototype._oldGetFiles = BrowseButton.prototype.getFiles
+    BrowseButton.prototype.getFiles = function (){
+        browseButtonInstance = this;
+        return this._oldGetFiles();
+    }
+
+    UploadQueue.prototype._oldQueue = UploadQueue.prototype._addQueue;
+
+    //update code such that only working if doing upload queue. look at elements in self
+    UploadQueue.prototype._addQueue = function(files) {
+        var ret = true;
+        var self = this;
+
+        // do not want to convert thumbnail code
+        if(this._episodeObject._episodeUploadQueue == this)
+        {
+            this.options.nParallel = 1;
+            let arrayFiles = []
+            for (var i = 0; i < files.length; i++) {
+                arrayFiles.push(files[i]);
+            }
+
+            processFiles(arrayFiles).then(files => {
+                ret = self._oldQueue(files);
+                
+                var fileSelect = browseButtonInstance.getFileSelect().get(0);
+                fileSelect.value = "";
+            });
+        }
+        else
+        {
+            ret = self._oldQueue(files);
+        }
+        return ret;
+    };
 }
 
-UploadQueue.prototype._oldQueue = UploadQueue.prototype._addQueue;
-var processFilePromise = CreatePromiseEvent();
 
-//update code such that only working if doing upload queue. look at elements in self
-UploadQueue.prototype._addQueue = function(files) {
-    var ret = true;
-    var self = this;
-
-    // do not want to convert thumbnail code
-    if(this._episodeObject._episodeUploadQueue == this)
-    {
-        let arrayFiles = []
-        for (var i = 0; i < files.length; i++) {
-            arrayFiles.push(files[i]);
-        }
-        this.options.nParallel = 1;
-        processFilePromise = CreatePromiseEvent();
-        let process = processFiles(arrayFiles);
-        processFilePromise.then(files => {
-            ret = self._oldQueue(files);
-            
-            var fileSelect = browseButtonInstance.getFileSelect().get(0);
-            fileSelect.value = "";
-        });
-    }
-    else
-    {
-        ret = self._oldQueue(files);
-    }
-    return ret;
-};
 
 
