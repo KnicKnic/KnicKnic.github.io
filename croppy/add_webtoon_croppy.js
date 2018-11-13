@@ -89,7 +89,7 @@ if( window.location.hostname == 'tapas.io' && typeof panda === 'object')
 {
     panda.preUploadingHook = function (files, cb) {
         //can add a loading animation here. 
-        processFiles({data:  files, site: 'Tapas'}).then(pFiles => {
+        processFiles(files, 'Tapas').then(pFiles => {
             cb.call(this, pFiles);
         });
     }
@@ -115,7 +115,7 @@ else
         {
             this.options.nParallel = 1;
 
-            processFiles({data:  arrayFiles, site: 'Line'}).then(files => {
+            processFiles(arrayFiles, 'Line').then(files => {
                 ret = self._oldQueue(files);
                 
                 var fileSelect = browseButtonInstance.getFileSelect().get(0);
