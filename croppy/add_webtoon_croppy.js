@@ -66,10 +66,10 @@ function ReadFile(file) {
     return readFile;
 };
 // handle new images to process
-var processFiles = async function (files, site) {
+var processFiles = async function (fileList, site) {
     processFilePromise = CreatePromiseEvent();
     // When the control has changed, there are new files
-
+    let files = Array.from(fileList);
     let len = files.length;
     let toProcess = []
 
