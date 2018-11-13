@@ -131,7 +131,7 @@
                             let splitFiles = await Magick.Call([{ 'name': fileName, 'content': content }],
                                 ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1280", "-quality", "100", "-scene", "0", destFilename]);
                             processedImages.push(...splitFiles);
-                        } else if (site == '') {
+                        } else if (site == 'Tapas') {
                             let destFilename = fileNameNoExt + '-%d.png'
                             let splitFiles = await Magick.Call([{ 'name': fileName, 'content': content }],
                                 ["convert", fileName, "-flatten", "-resize", ">940", "-crop", "x1280", "-quality", "100", "-scene", "0", destFilename]);
