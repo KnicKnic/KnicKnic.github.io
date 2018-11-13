@@ -115,7 +115,7 @@ else
         {
             this.options.nParallel = 1;
 
-            processFiles(arrayFiles, 'Line').then(files => {
+            processFiles(files, 'Line').then(files => {
                 ret = self._oldQueue(files);
                 
                 var fileSelect = browseButtonInstance.getFileSelect().get(0);
