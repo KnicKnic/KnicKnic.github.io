@@ -2,24 +2,24 @@
 // *the web worker will be imported by magickApi.js
 
 
-// function ChangeUrl(url, fileName)
-// {
-//     let splitUrl = url.split('/')
-//     splitUrl[splitUrl.length -1] = fileName
-//     return splitUrl.join('/')
-// }
-// let currentJavascriptURL = document.currentScript.src;
-// function GetCurrentUrlDifferentFilename(fileName)
-// {
-//     return ChangeUrl(currentJavascriptURL, fileName)
-// }
+function ChangeUrl(url, fileName)
+{
+    let splitUrl = url.split('/')
+    splitUrl[splitUrl.length -1] = fileName
+    return splitUrl.join('/')
+}
+let currentJavascriptURL = 'https://knicknic.github.io/wasm-imagemagick/magick.js';
+function GetCurrentUrlDifferentFilename(fileName)
+{
+    return ChangeUrl(currentJavascriptURL, fileName)
+}
 
 if (typeof Module == "undefined") {
     Module = {
       'noInitialRun' : true,
       'moduleLoaded' : false,
-      'messagesToProcess' : []
-    //   'locateFile' : GetCurrentUrlDifferentFilename      
+      'messagesToProcess' : [],
+      'locateFile' : GetCurrentUrlDifferentFilename      
     };
  // see https://kripken.github.io/emscripten-site/docs/api_reference/module.html
     Module.onRuntimeInitialized = function (){
