@@ -37,7 +37,7 @@ function GetCurrentUrlDifferentFilename(fileName)
 }
 let magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js')
 
-let magickWorker = new Worker(magickWorkerUrl);
+let magickWorker = new Worker('magick.js');
 
 let magickWorkerPromises = {}
 let magickWorkerPromisesKey = 1

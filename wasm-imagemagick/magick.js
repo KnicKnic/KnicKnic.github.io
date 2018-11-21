@@ -18,8 +18,8 @@ if (typeof Module == "undefined") {
     Module = {
       'noInitialRun' : true,
       'moduleLoaded' : false,
-      'messagesToProcess' : [],
-      'locateFile' : GetCurrentUrlDifferentFilename      
+      'messagesToProcess' : []
+    //   'locateFile' : GetCurrentUrlDifferentFilename      
     };
  // see https://kripken.github.io/emscripten-site/docs/api_reference/module.html
     Module.onRuntimeInitialized = function (){
