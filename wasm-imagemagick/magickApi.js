@@ -30,10 +30,10 @@ function ChangeUrl(url, fileName)
     splitUrl[splitUrl.length -1] = fileName
     return splitUrl.join('/')
 }
+let currentJavascriptURL = document.currentScript.src;
 function GetCurrentUrlDifferentFilename(fileName)
 {
-    let currentURL = document.currentScript.src;
-    return ChangeUrl(currentUrl, fileName)
+    return ChangeUrl(currentJavascriptURL, fileName)
 }
 let magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js')
 
