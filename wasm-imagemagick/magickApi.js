@@ -42,7 +42,7 @@ function GetCurrentUrlDifferentFilename(fileName)
 {
     return ChangeUrl(currentJavascriptURL, fileName)
 }
-let currentUrl = import.meta.url;
+let currentJavascriptURL = import.meta.url;
 let magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js')
 // let magickWorkerUrl = 'https://knicknic.github.io/wasm-imagemagick/magick.js'
 let magickWorker = ''
