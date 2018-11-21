@@ -1,11 +1,25 @@
 // This file helps make the compiled js file be imported as a web worker
 // *the web worker will be imported by magickApi.js
 
+
+function ChangeUrl(url, fileName)
+{
+    let splitUrl = url.split('/')
+    splitUrl[splitUrl.length -1] = fileName
+    return splitUrl.join('/')
+}
+function GetCurrentUrlDifferentFilename(fileName)
+{
+    let currentURL = document.currentScript.src;
+    return ChangeUrl(currentUrl, fileName)
+}
+
 if (typeof Module == "undefined") {
     Module = {
       'noInitialRun' : true,
       'moduleLoaded' : false,
-      'messagesToProcess' : []      
+      'messagesToProcess' : [],
+      'locateFile' : GetCurrentUrlDifferentFilename      
     };
  // see https://kripken.github.io/emscripten-site/docs/api_reference/module.html
     Module.onRuntimeInitialized = function (){

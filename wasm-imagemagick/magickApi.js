@@ -24,7 +24,20 @@ export function Call (inputFiles, command) {
     return emptyPromise;
 }
 
-let magickWorker = new Worker('magick.js');
+function ChangeUrl(url, fileName)
+{
+    let splitUrl = url.split('/')
+    splitUrl[splitUrl.length -1] = fileName
+    return splitUrl.join('/')
+}
+function GetCurrentUrlDifferentFilename(fileName)
+{
+    let currentURL = document.currentScript.src;
+    return ChangeUrl(currentUrl, fileName)
+}
+let magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js')
+
+let magickWorker = new Worker(magickWorkerUrl);
 
 let magickWorkerPromises = {}
 let magickWorkerPromisesKey = 1
