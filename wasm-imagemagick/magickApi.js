@@ -7,6 +7,8 @@ export function CreatePromiseEvent () {
     emptyPromise['reject'] = rejecter;
     return emptyPromise;
 }
+let drain = {'init': false,
+             'items': []}
 
 export function Call (inputFiles, command) {
     let request = {
@@ -18,32 +20,39 @@ export function Call (inputFiles, command) {
     let emptyPromise = CreatePromiseEvent();
     magickWorkerPromises[magickWorkerPromisesKey] = emptyPromise;
 
-    magickWorker.postMessage(request);
+    if(!drain.init)
+    {
+        drain.items.push(request);
+    }
+    else{
+        magickWorker.postMessage(request);
+    }
 
     magickWorkerPromisesKey = magickWorkerPromisesKey + 1
     return emptyPromise;
 }
 
-// function ChangeUrl(url, fileName)
-// {
-//     let splitUrl = url.split('/')
-//     splitUrl[splitUrl.length -1] = fileName
-//     return splitUrl.join('/')
-// }
-// let currentJavascriptURL = document.currentScript.src;
-// function GetCurrentUrlDifferentFilename(fileName)
-// {
-//     return ChangeUrl(currentJavascriptURL, fileName)
-// }
-// let magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js')
-let magickWorkerUrl = 'https://knicknic.github.io/wasm-imagemagick/magick.js'
-let magickWorker = new Worker(magickWorkerUrl);
+function ChangeUrl(url, fileName)
+{
+    let splitUrl = url.split('/')
+    splitUrl[splitUrl.length -1] = fileName
+    return splitUrl.join('/')
+}
+function GetCurrentUrlDifferentFilename(fileName)
+{
+    return ChangeUrl(currentJavascriptURL, fileName)
+}
+let currentUrl = import.meta.url;
+let magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js')
+// let magickWorkerUrl = 'https://knicknic.github.io/wasm-imagemagick/magick.js'
+let magickWorker = ''
+// let magickWorker = new Worker(magickWorkerUrl);
 
 let magickWorkerPromises = {}
 let magickWorkerPromisesKey = 1
 
 // handle responses as they stream in after being processed by image magick
-magickWorker.onmessage = function (e) {
+function MagickWorkerOnMessage(e) {
     // display split images
     let response = e.data
     let getPromise = magickWorkerPromises[response['requestNumber']];
@@ -56,3 +65,28 @@ magickWorker.onmessage = function (e) {
         getPromise['resolve'](files);
     }
 };
+
+function XHRWorker(url, ready, scope) {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function() {
+        var worker = new Worker(window.URL.createObjectURL(new Blob([this.responseText])));
+        if (ready) {
+            ready.call(scope, worker);
+        }
+    }, oReq);
+    oReq.open("get", url, true);
+    oReq.send();
+}
+
+function WorkerStart() {
+    XHRWorker(magickWorkerUrl, function(worker) {
+        magickWorker = worker;
+        drain.init = true
+        drain.items.forEach(element => {
+            magickWorker.postMessage(element);
+        });
+        worker.onmessage = MagickWorkerOnMessage
+    }, this);
+}
+
+WorkerStart();
