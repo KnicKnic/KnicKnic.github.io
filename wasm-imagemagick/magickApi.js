@@ -100,4 +100,5 @@ function WorkerStart() {
 }
 
 // WorkerStart();
-let magickWorker = new Worker(window.URL.createObjectURL(new Blob([GenerateMagickWorkerText(magickWorkerUrl)])));
+// let 
+magickWorker = new Worker(window.URL.createObjectURL(new Blob([GenerateMagickWorkerText(magickWorkerUrl)])));
