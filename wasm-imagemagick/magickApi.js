@@ -1,3 +1,5 @@
+// this file creates a webworker and then imports magick.js using that webworker
+
 
 export function CreatePromiseEvent () {
     let resolver;
@@ -7,8 +9,6 @@ export function CreatePromiseEvent () {
     emptyPromise['reject'] = rejecter;
     return emptyPromise;
 }
-let drain = {'init': false,
-             'items': []}
 
 export function Call (inputFiles, command) {
     let request = {
@@ -20,13 +20,7 @@ export function Call (inputFiles, command) {
     let emptyPromise = CreatePromiseEvent();
     magickWorkerPromises[magickWorkerPromisesKey] = emptyPromise;
 
-    // if(!drain.init)
-    // {
-    //     drain.items.push(request);
-    // }
-    // else{
-        magickWorker.postMessage(request);
-    // }
+    magickWorker.postMessage(request);
 
     magickWorkerPromisesKey = magickWorkerPromisesKey + 1
     return emptyPromise;
@@ -44,9 +38,7 @@ function GetCurrentUrlDifferentFilename(fileName)
 }
 const currentJavascriptURL = import.meta.url;
 const magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js')
-// let magickWorkerUrl = 'https://knicknic.github.io/wasm-imagemagick/magick.js'
-let magickWorker = ''
-// let magickWorker = new Worker(magickWorkerUrl);
+// const magickWorkerUrl = 'https://knicknic.github.io/wasm-imagemagick/magick.js'
 
 let magickWorkerPromises = {}
 let magickWorkerPromisesKey = 1
@@ -72,34 +64,8 @@ function GenerateMagickWorkerText(magickUrl){
     // importScripts(magickJsCurrentPath);
 
     return "var magickJsCurrentPath = '" + magickUrl +"';\n" +
-           'function ParentPostMessage(m){\npostMessage(m);\n}\nimportScripts(magickJsCurrentPath);'
+           'importScripts(magickJsCurrentPath);'
 }
 
-
-function XHRWorker(url, ready, scope) {
-    let oReq = new XMLHttpRequest();
-    oReq.addEventListener('load', function() {
-        let worker = new Worker(window.URL.createObjectURL(new Blob([this.responseText])));
-        if (ready) {
-            ready.call(scope, worker);
-        }
-    }, oReq);
-    oReq.open("get", url, true);
-    oReq.send();
-}
-
-function WorkerStart() {
-    XHRWorker(magickWorkerUrl, function(worker) {
-        magickWorker = worker;
-        drain.init = true
-        drain.items.forEach(element => {
-            magickWorker.postMessage(element);
-        });
-        worker.onmessage = MagickWorkerOnMessage
-    }, this);
-}
-
-// WorkerStart();
-// let 
-magickWorker = new Worker(window.URL.createObjectURL(new Blob([GenerateMagickWorkerText(magickWorkerUrl)])));
+let magickWorker = new Worker(window.URL.createObjectURL(new Blob([GenerateMagickWorkerText(magickWorkerUrl)])));
 magickWorker.onmessage = MagickWorkerOnMessage;
