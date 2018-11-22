@@ -72,7 +72,7 @@ function GenerateMagickWorkerText(magickUrl){
     // importScripts(magickJsCurrentPath);
 
     return "var magickJsCurrentPath = '" + magickUrl +"';\n" +
-           'importScripts(magickJsCurrentPath);'
+           'function ParentPostMessage(m){\npostMessage(m);\n}\nimportScripts(magickJsCurrentPath);'
 }
 
 

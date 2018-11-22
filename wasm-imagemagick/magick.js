@@ -76,7 +76,12 @@ processFiles = function(){
             responseFiles.push(processed);
         }
         message['processed'] = responseFiles
-        postMessage(message);
+        if (magickJsCurrentPath !== undefined) {
+            ParentPostMessage(message);
+        }
+        else {
+            postMessage(message);
+        }
     }
     Module.messagesToProcess = [];
 };
