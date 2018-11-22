@@ -39,7 +39,7 @@ function GetCurrentUrlDifferentFilename(fileName)
 }
 let currentJavascriptURL = './magickApi.js';
 try {
-    let packageUrl = import.meta.url;
+    let packageUrl = eval('import.meta.url');
     currentJavascriptURL = packageUrl    
 } catch (error) {
     // eat
