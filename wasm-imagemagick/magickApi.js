@@ -37,7 +37,14 @@ function GetCurrentUrlDifferentFilename(fileName)
 {
     return ChangeUrl(currentJavascriptURL, fileName)
 }
-const currentJavascriptURL = import.meta.url;
+let currentJavascriptURL = './magickApi.js';
+try {
+    let packageUrl = import.meta.url;
+    currentJavascriptURL = packageUrl    
+} catch (error) {
+    // eat
+}
+
 const magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js')
 // const magickWorkerUrl = 'https://knicknic.github.io/wasm-imagemagick/magick.js'
 
