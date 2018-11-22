@@ -20,13 +20,13 @@ export function Call (inputFiles, command) {
     let emptyPromise = CreatePromiseEvent();
     magickWorkerPromises[magickWorkerPromisesKey] = emptyPromise;
 
-    if(!drain.init)
-    {
-        drain.items.push(request);
-    }
-    else{
+    // if(!drain.init)
+    // {
+    //     drain.items.push(request);
+    // }
+    // else{
         magickWorker.postMessage(request);
-    }
+    // }
 
     magickWorkerPromisesKey = magickWorkerPromisesKey + 1
     return emptyPromise;
