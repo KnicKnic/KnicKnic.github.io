@@ -42,8 +42,8 @@ function GetCurrentUrlDifferentFilename(fileName)
 {
     return ChangeUrl(currentJavascriptURL, fileName)
 }
-let currentJavascriptURL = import.meta.url;
-let magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js')
+const currentJavascriptURL = import.meta.url;
+const magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js')
 // let magickWorkerUrl = 'https://knicknic.github.io/wasm-imagemagick/magick.js'
 let magickWorker = ''
 // let magickWorker = new Worker(magickWorkerUrl);
@@ -66,10 +66,20 @@ function MagickWorkerOnMessage(e) {
     }
 };
 
+function GenerateMagickWorkerText(magickUrl){
+    // generates code for the following
+    // var magickJsCurrentPath = 'magickUrl';
+    // importScripts(magickJsCurrentPath);
+
+    return "var magickJsCurrentPath = '" + magickUrl +"';\n" +
+           'importScripts(magickJsCurrentPath);'
+}
+
+
 function XHRWorker(url, ready, scope) {
-    var oReq = new XMLHttpRequest();
+    let oReq = new XMLHttpRequest();
     oReq.addEventListener('load', function() {
-        var worker = new Worker(window.URL.createObjectURL(new Blob([this.responseText])));
+        let worker = new Worker(window.URL.createObjectURL(new Blob([this.responseText])));
         if (ready) {
             ready.call(scope, worker);
         }
@@ -89,4 +99,5 @@ function WorkerStart() {
     }, this);
 }
 
-WorkerStart();
+// WorkerStart();
+let magickWorker = new Worker(window.URL.createObjectURL(new Blob([GenerateMagickWorkerText(magickWorkerUrl)])));

@@ -8,19 +8,21 @@ function ChangeUrl(url, fileName)
     splitUrl[splitUrl.length -1] = fileName
     return splitUrl.join('/')
 }
-let currentJavascriptURL = 'https://knicknic.github.io/wasm-imagemagick/magick.js';
+// const magickJsCurrentPath = 'https://knicknic.github.io/wasm-imagemagick/magick.js';
 function GetCurrentUrlDifferentFilename(fileName)
 {
-    return ChangeUrl(currentJavascriptURL, fileName)
+    return ChangeUrl(magickJsCurrentPath, fileName)
 }
 
 if (typeof Module == "undefined") {
     Module = {
       'noInitialRun' : true,
       'moduleLoaded' : false,
-      'messagesToProcess' : [],
-      'locateFile' : GetCurrentUrlDifferentFilename      
+      'messagesToProcess' : []    
     };
+    if(magickJsCurrentPath !== undefined){
+        Module.locateFile = GetCurrentUrlDifferentFilename;
+    }
  // see https://kripken.github.io/emscripten-site/docs/api_reference/module.html
     Module.onRuntimeInitialized = function (){
         //console.log('loaded wasm')
