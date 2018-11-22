@@ -1,5 +1,6 @@
 // this file creates a webworker and then imports magick.js using that webworker
 
+console.log("inside magickApi");
 
 export function CreatePromiseEvent () {
     let resolver;
