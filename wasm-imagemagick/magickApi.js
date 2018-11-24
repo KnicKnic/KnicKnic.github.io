@@ -37,10 +37,17 @@ function GetCurrentUrlDifferentFilename(fileName)
 {
     return ChangeUrl(currentJavascriptURL, fileName)
 }
+// let currentJavascriptURL = 'https://knicknic.github.io/wasm-imagemagick/magickApi.js';
 let currentJavascriptURL = './magickApi.js';
+try{
+    
+    asdfasdflkjasdf =asdfasdfasdfasfasfsa
+}
+catch(e){}
 try {
-    let packageUrl = eval('import.meta.url');
+    //let packageUrl = import.meta.url;
     currentJavascriptURL = packageUrl    
+    asdfasdflkjasdf =asdfasdfasdfasfasfsa
 } catch (error) {
     // eat
 }
@@ -74,6 +81,13 @@ function GenerateMagickWorkerText(magickUrl){
     return "var magickJsCurrentPath = '" + magickUrl +"';\n" +
            'importScripts(magickJsCurrentPath);'
 }
+let magickWorker;
 
-let magickWorker = new Worker(window.URL.createObjectURL(new Blob([GenerateMagickWorkerText(magickWorkerUrl)])));
+if(currentJavascriptURL.startswith('http'))
+{
+    magickWorker = new Worker(window.URL.createObjectURL(new Blob([GenerateMagickWorkerText(magickWorkerUrl)])));
+}
+else{
+    magickWorker = new Worker(magickWorkerUrl);
+}
 magickWorker.onmessage = MagickWorkerOnMessage;
