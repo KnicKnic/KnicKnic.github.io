@@ -20,7 +20,7 @@ if (typeof Module == "undefined") {
       'moduleLoaded' : false,
       'messagesToProcess' : []    
     };
-    if(magickJsCurrentPath !== undefined){
+    if(typeof magickJsCurrentPath !== "undefined"){
         Module.locateFile = GetCurrentUrlDifferentFilename;
     }
  // see https://kripken.github.io/emscripten-site/docs/api_reference/module.html
