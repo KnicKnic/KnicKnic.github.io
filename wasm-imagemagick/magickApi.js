@@ -83,7 +83,7 @@ function GenerateMagickWorkerText(magickUrl){
 }
 let magickWorker;
 
-if(currentJavascriptURL.startswith('http'))
+if(currentJavascriptURL.startsWith('http'))
 {
     magickWorker = new Worker(window.URL.createObjectURL(new Blob([GenerateMagickWorkerText(magickWorkerUrl)])));
 }
