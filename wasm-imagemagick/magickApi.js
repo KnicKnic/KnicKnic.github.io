@@ -38,14 +38,14 @@ function GetCurrentUrlDifferentFilename(fileName)
     return ChangeUrl(currentJavascriptURL, fileName)
 }
 // let currentJavascriptURL = 'https://knicknic.github.io/wasm-imagemagick/magickApi.js';
-let currentJavascriptURL = './magickApi.js';
+let currentJavascriptURL = '../magickApi.js';
 try{
     
     asdfasdflkjasdf =asdfasdfasdfasfasfsa
 }
 catch(e){}
 try {
-    let packageUrl = import.meta.url;
+    //let packageUrl = import.meta.url;
     currentJavascriptURL = packageUrl    
     asdfasdflkjasdf =asdfasdfasdfasfasfsa
 } catch (error) {
