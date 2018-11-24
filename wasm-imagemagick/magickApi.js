@@ -45,7 +45,7 @@ try{
 }
 catch(e){}
 try {
-    //let packageUrl = import.meta.url;
+    let packageUrl = import.meta.url;
     currentJavascriptURL = packageUrl    
     asdfasdflkjasdf =asdfasdfasdfasfasfsa
 } catch (error) {
