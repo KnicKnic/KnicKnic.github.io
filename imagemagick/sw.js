@@ -1,14 +1,14 @@
 // version 1
 // v0
 var prefix_name = "imagemagick_"
-var CACHE_NAME = prefix_name + 'cache_1_0_5';
+var CACHE_NAME = prefix_name + 'cache_1_0_6';
 var cacheWhitelist = [CACHE_NAME];
 var urlsToCache = [
     './',
     './index.html',
-    './magick.js',
-    './magick.wasm',
-    './magickApi.js',
+    'https://knicknic.github.io/wasm-imagemagick/magick.js',
+    'https://knicknic.github.io/wasm-imagemagick/magick.wasm',
+    'https://knicknic.github.io/wasm-imagemagick/magickApi.js',
     'https://cdn.jsdelivr.net/g/filesaver.js',
     'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js'
 ];
