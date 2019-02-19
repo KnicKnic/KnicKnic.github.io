@@ -5,10 +5,10 @@ See https://knicknic.github.io/imagemagick/rotate for demonstration website
 
 ## code
 In index.html see relevant portions called out below "..." means I deleted code
-```
+```html
   <script type='module'>
     //import the library to talk to imagemagick
-    import * as Magick from './magickApi.js';
+    import * as Magick from 'https://knicknic.github.io/wasm-imagemagick/magickApi.js';
 
    ...
 
@@ -26,4 +26,4 @@ In index.html see relevant portions called out below "..." means I deleted code
 ``` 
 
 ## Deploy
-copy a release (magickApi.js, magick.js, magick.wasm) along with this index.html & rotate.png into a webserver.
+copy a release [(magickApi.js, magick.js, magick.wasm) or use an exiting release such as https://knicknic.github.io/wasm-imagemagick/magickApi.js] along with this index.html & rotate.png into a webserver.
