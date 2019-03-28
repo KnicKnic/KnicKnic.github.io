@@ -3743,9 +3743,11 @@ var stacktrace = createCommonjsModule(function (module, exports) {
 function Call(inputFiles, command) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield call(inputFiles, command);
-        for(let outputFile of result.outputFiles)
-        {
-          outputFile.blob = new Blob([outputFile.buffer])
+        if('transferable' in result){
+          for(let outputFile of result.outputFiles)
+          {
+            outputFile.blob = new Blob([outputFile.buffer])
+          }
         }
         return result.outputFiles;
     });
@@ -3759,6 +3761,7 @@ function call(inputFiles, command) {
         files: inputFiles,
         args: command,
         requestNumber: magickWorkerPromisesKey,
+        transferable: true,
     };
     let transfer = [];
     for (let file of request.files) {

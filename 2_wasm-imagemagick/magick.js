@@ -95,9 +95,15 @@ processFiles = function () {
       // cleanup read file
       FS.unlink(destFilename)
       
-      processed.buffer = read
+      if('transferable' in message)
+      {
+        processed.buffer = read
+        transfer.push(read.buffer)
+      }
+      else{
+        processed.blob = new Blob([read])
+      }
       responseFiles.push(processed)
-      transfer.push(read.buffer)
     }
     message.outputFiles = responseFiles
     message.stdout = stdout.map(s => s)
