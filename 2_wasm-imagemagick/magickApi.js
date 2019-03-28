@@ -3758,7 +3758,10 @@ function call(inputFiles, command) {
     };
     let transfer = [];
     for (let file of request.files) {
-      // transfer.push(file.content)
+      if(file.content instanceof ArrayBuffer)
+      {
+       transfer.push(file.content)
+      }
     }
 
     const promise = CreatePromiseEvent();
