@@ -62,7 +62,12 @@ processFiles = function () {
   for (let message of Module.messagesToProcess) {
 
     for (let file of message.files) {
-      FS.writeFile(file.name, file.content)
+      var fileData = file.content
+      if(fileData instanceof ArrayBuffer)
+      {
+        fileData = new DataView(fileData)
+      }
+      FS.writeFile(file.name, fileData)
     }
 
     try {
