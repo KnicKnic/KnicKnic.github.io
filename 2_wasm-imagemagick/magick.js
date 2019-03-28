@@ -65,7 +65,8 @@ processFiles = function () {
       var fileData = file.content
       if(fileData instanceof ArrayBuffer)
       {
-        fileData = new DataView(fileData)
+        // fileData = new DataView(fileData)
+        fileData = new Uint8Array(fileData);
       }
       FS.writeFile(file.name, fileData)
     }
