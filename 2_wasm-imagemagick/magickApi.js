@@ -3743,11 +3743,9 @@ var stacktrace = createCommonjsModule(function (module, exports) {
 function Call(inputFiles, command) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield call(inputFiles, command);
-        if('transferable' in result){
-          for(let outputFile of result.outputFiles)
-          {
-            outputFile.blob = new Blob([outputFile.buffer])
-          }
+        for(let outputFile of result.outputFiles)
+        {
+          outputFile.blob = new Blob([outputFile.buffer])
         }
         return result.outputFiles;
     });
