@@ -3756,9 +3756,14 @@ function call(inputFiles, command) {
         args: command,
         requestNumber: magickWorkerPromisesKey,
     };
+    let transfer = [];
+    for (let file of request.files) {
+      transfer.push(file.content)
+    }
+
     const promise = CreatePromiseEvent();
     magickWorkerPromises[magickWorkerPromisesKey] = promise;
-    magickWorker.postMessage(request);
+    magickWorker.postMessage(request,transfer);
     magickWorkerPromisesKey++;
     return promise;
 }

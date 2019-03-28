@@ -83,7 +83,7 @@
 
   <script type='module'>
     //import the library to talk to imagemagick
-    import * as Magick from 'https://knicknic.github.io/wasm-imagemagick/magickApi.js';
+    import * as Magick from 'https://knicknic.github.io/2_wasm-imagemagick/magickApi.js';
 
     // various html elements
     let advancedOptions = document.getElementById('advancedOptions');
@@ -100,36 +100,6 @@
     let imageHolder = document.getElementById('imageHolder');
     let filesRemaining = document.getElementById("files-remaining");
     let processing = document.getElementById("Processing");
-
-    //service worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js', {
-          updateViaCache: 'none',
-          // https://developers.google.com/web/updates/2018/06/fresher-sw
-        }).then(function (registration) {
-          let refreshing;
-          navigator.serviceWorker.addEventListener('controllerchange',
-            function () {
-              if (refreshing) return;
-              refreshing = true;
-              window.location.reload();
-            }
-          );
-
-          if (registration.active) {
-            registration.active.addEventListener('message', function (msg) {
-              alert(msg);
-              location.reload();
-            });
-          }
-        }, function (err) {
-          // registration failed :(
-          console.log('ServiceWorker registration failed: ', err);
-        });
-      });
-    }
-
 
     // deal with input urls
     {
