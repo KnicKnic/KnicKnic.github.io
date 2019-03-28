@@ -3745,7 +3745,7 @@ function Call(inputFiles, command) {
         const result = yield call(inputFiles, command);
         for(let outputFile of result.outputFiles)
         {
-          outputFile.blob = new Blob([read])
+          outputFile.blob = new Blob([outputFile.buffer])
         }
         return result.outputFiles;
     });
