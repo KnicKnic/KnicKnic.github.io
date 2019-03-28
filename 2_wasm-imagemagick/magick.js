@@ -97,7 +97,7 @@ processFiles = function () {
       
       processed.buffer = read
       responseFiles.push(processed)
-      transfer.push(read)
+      transfer.push(read.buffer)
     }
     message.outputFiles = responseFiles
     message.stdout = stdout.map(s => s)
