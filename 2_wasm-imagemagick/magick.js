@@ -86,20 +86,35 @@ processFiles = function () {
     let dir = FS.open('/pictures')
     let files = dir.node.contents
     let responseFiles = []
+    let transfer = [];
     for (let destFilename in files) {
       let processed = {}
       processed.name = destFilename
       let read = FS.readFile(destFilename)
+      
       // cleanup read file
       FS.unlink(destFilename)
-      processed.blob = new Blob([read])
+      
+      processed.buffer = read
       responseFiles.push(processed)
+      transfer.push(read)
     }
     message.outputFiles = responseFiles
     message.stdout = stdout.map(s => s)
     message.stderr = stderr.map(s => s)
     message.exitCode = exitCode
-    postMessage(message)
+
+    for (let file of message.files) {
+      if(file.content instanceof ArrayBuffer)
+      {
+        transfer.push(file.content)
+      }
+      else{
+        transfer.push(file.content.buffer)
+      }
+    }
+
+    postMessage(message, transfer)
   }
   Module.messagesToProcess = []
 }

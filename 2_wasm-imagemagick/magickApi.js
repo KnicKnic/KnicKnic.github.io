@@ -3743,6 +3743,10 @@ var stacktrace = createCommonjsModule(function (module, exports) {
 function Call(inputFiles, command) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield call(inputFiles, command);
+        for(let outputFile of result.outputFiles)
+        {
+          outputFile.blob = new Blob([read])
+        }
         return result.outputFiles;
     });
 }
@@ -3760,7 +3764,10 @@ function call(inputFiles, command) {
     for (let file of request.files) {
       if(file.content instanceof ArrayBuffer)
       {
-       transfer.push(file.content)
+        transfer.push(file.content)
+      }
+      else{
+        transfer.push(file.content.buffer)
       }
     }
 
