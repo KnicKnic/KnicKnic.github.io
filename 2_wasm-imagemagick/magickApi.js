@@ -3743,9 +3743,8 @@ var stacktrace = createCommonjsModule(function (module, exports) {
 function Call(inputFiles, command) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield call(inputFiles, command);
-        for(let outputFile of result.outputFiles)
-        {
-          outputFile.blob = new Blob([outputFile.buffer])
+        for (let outputFile of result.outputFiles) {
+            outputFile.blob = new Blob([outputFile.buffer]);
         }
         return result.outputFiles;
     });
@@ -3763,18 +3762,16 @@ function call(inputFiles, command) {
     };
     let transfer = [];
     for (let file of request.files) {
-      if(file.content instanceof ArrayBuffer)
-      {
-        transfer.push(file.content)
-      }
-      else{
-        transfer.push(file.content.buffer)
-      }
+        if (file.content instanceof ArrayBuffer) {
+            transfer.push(file.content);
+        }
+        else {
+            transfer.push(file.content.buffer);
+        }
     }
-
     const promise = CreatePromiseEvent();
     magickWorkerPromises[magickWorkerPromisesKey] = promise;
-    magickWorker.postMessage(request,transfer);
+    magickWorker.postMessage(request, transfer);
     magickWorkerPromisesKey++;
     return promise;
 }
