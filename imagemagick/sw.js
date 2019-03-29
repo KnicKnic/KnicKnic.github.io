@@ -1,7 +1,7 @@
 // version 1
 // v0
 var prefix_name = "imagemagick_"
-var CACHE_NAME = prefix_name + 'cache_1_0_6';
+var CACHE_NAME = prefix_name + 'cache_1_0_8';
 var cacheWhitelist = [CACHE_NAME];
 var urlsToCache = [
     './',
