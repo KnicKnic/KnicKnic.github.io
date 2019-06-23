@@ -23,16 +23,20 @@
       // Otherwise, leave segmentCount as 0.
       var segmentCount = 0;
       var l = window.location;
-      if(l.pathname.includes('drawpile-admin-test')){segmentCount = 1;}
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?p=/' +
-        l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
+      if(l.pathname.includes('drawpile-admin-test')){
+        segmentCount = 1;
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/spa.html?p=/' +
+          l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+        );
+      }
     </script>
   </head>
   <body>
+    <H1>404 - URL not found</H1>
+    <p>Try going to root website <a href="https://knicknic.github.io">https://knicknic.github.io</a></p>
   </body>
 </html>
