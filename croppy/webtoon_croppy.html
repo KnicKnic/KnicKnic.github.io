@@ -129,7 +129,7 @@
                         if (site == 'Line') {
                             let destFilename = fileNameNoExt + '-%d.jpg'
                             let splitFiles = await Magick.Call([{ 'name': fileName, 'content': content }],
-                                ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
+                                ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1280", "-quality", "100", "-scene", "0", destFilename]);
                             processedImages.push(...splitFiles);
                         } else if (site == 'Tapas') {
                             let destFilename = fileNameNoExt + '-%d.png'
