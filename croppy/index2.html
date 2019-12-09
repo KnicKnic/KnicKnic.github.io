@@ -364,14 +364,18 @@
           let fileNameNoExt = fileName.substring(0, fileName.lastIndexOf('.'));
           try{
             if (doLine.checked) {
+              // first do PNG
+              // should skip this if input file is .jpg or .jpeg (ignore case)
               let destFilename = fileNameNoExt + '-%d.png'
               let splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
                 ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
+              // PNG is too large, try JPG
               if(IsTooLarge(splitFiles)){
                 destFilename = fileNameNoExt + '-%d.jpg'
                 splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
                   ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
                 
+                // jpeg too large, max file size each file
                 if(IsTooLarge(splitFiles)){
                 let maxSize = Math.floor(20459520 / splitFiles.length)
                 let maxSizeStr = "jpeg:extent=" + maxSize
