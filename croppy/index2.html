@@ -366,12 +366,13 @@
               if (doLine.checked) {
                 let [fileName,content] = await ReadFile(files[fileIndex]);
                 let fileNameNoExt = fileName.substring(0, fileName.lastIndexOf('.'));
+                let splitFiles = []
                 // first do PNG
                 switch (webtoonRetryLogic){
                   case 0:
                     // should skip this if input file is .jpg or .jpeg (ignore case)
                     let destFilename = fileNameNoExt + '-%d.png'
-                    let splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
+                    splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
                       ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
                     break;
                   
