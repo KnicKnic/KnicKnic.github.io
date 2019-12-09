@@ -139,6 +139,8 @@
 
                     for (let fileIndex = 0; fileIndex < files.length; ++fileIndex) {
                         let [fileName, content] = files[fileIndex];
+                        // due to magick stealing content, create a copy
+                        content = content.slice(0)
                         let fileNameNoExt = fileName.substring(0, fileName.lastIndexOf('.'));
                         try {
                             if (site == 'Line') {
