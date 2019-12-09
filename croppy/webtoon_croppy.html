@@ -151,14 +151,14 @@
                                         // should skip this if input file is .jpg or .jpeg (ignore case)
                                         destFilename = fileNameNoExt + '-%d.png'
                                         splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
-                                        ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
+                                        ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1280", "-quality", "100", "-scene", "0", destFilename]);
                                         break;
                                     
                                     // PNG is too large, try JPG
                                     case 1:
                                         destFilename = fileNameNoExt + '-%d.jpg'
                                         splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
-                                        ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
+                                        ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1280", "-quality", "100", "-scene", "0", destFilename]);
                                         break;
 
                                     // jpeg too large, max file size each file
@@ -167,7 +167,7 @@
                                         let maxSize = Math.floor(20459520 / oldLineSplitCount)
                                         let maxSizeStr = "jpeg:extent=" + maxSize
                                         splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
-                                        ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-define", maxSizeStr, "-scene", "0", destFilename]);
+                                        ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1280", "-define", maxSizeStr, "-scene", "0", destFilename]);
                                     break;
                                 }
                                 processedImages.push(...splitFiles);
