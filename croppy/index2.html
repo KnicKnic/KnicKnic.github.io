@@ -307,7 +307,7 @@
     }
     function IsTooLarge(files){
       let total = 0
-      let fileIndex = 0; fileIndex < files.length; ++fileIndex){
+      for (let fileIndex = 0; fileIndex < files.length; ++fileIndex){
         total = total + files[fileIndex].blob.size
       }
       // is total greater than 19.5MB
