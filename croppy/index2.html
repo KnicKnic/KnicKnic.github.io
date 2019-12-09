@@ -234,38 +234,37 @@
       });
     }
 
-    function GenerateZipItemName(name){
+    function GenerateZipItemName(name, prefix){
       if(!doLine.checked || !doTapas.checked)
       {
         return name;
       }
       if(name.endsWith('.jpg'))
       {
-        return 'webtoon/'+name;
+        return prefix + '/'+name;
       }
       else if(name.endsWith('.png'))
       {
-        return 'tapas/'+name;
+        return prefix + '/'+name;
       }
       return name;
     }
 
-    function GenerateZip() {
+    function GenerateZip(line, tapas) {
       let zip = new JSZip();
-
-      if (imageHolder.hasChildNodes()) {
-        let children = imageHolder.childNodes;
-        for (let i = 0; i < children.length; i++) {
-          let child = children[i].wasmResponse;
-
-          zip.file(GenerateZipItemName(child['name']), child['blob'])
+      if((line.length + tapas.length ) >0){
+        for(let item of line){
+          zip.file(item.blob.name, 'webtoon')
+        }
+        for(let item of tapas){
+          zip.file(item.blob.name, 'tapas')
         }
         zip.generateAsync({ type: "blob" })
           .then(function (content) {
             // see FileSaver.js
             saveAs(content, "split.zip");
           });
-      }
+        }
     };
 
     // helper to read user inputed files
@@ -421,6 +420,9 @@
             break;
           }
         }
+        
+        GenerateZip(processedImagesLine, processedImagesTapas);
+        
         let processedImages = processedImagesLine;
         processedImages.push(...processedImagesTapas);
 
@@ -433,7 +435,6 @@
           img.wasmResponse = file
           imageHolder.appendChild(img);
         }
-        GenerateZip();
         CompletedImage("convert_complete", extension_first_file, conversion_destination);
         SetProcessing(false);
 
