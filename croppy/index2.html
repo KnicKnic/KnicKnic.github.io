@@ -367,25 +367,27 @@
                 let [fileName,content] = await ReadFile(files[fileIndex]);
                 let fileNameNoExt = fileName.substring(0, fileName.lastIndexOf('.'));
                 let splitFiles = []
+                
+                let destFilename = fileNameNoExt + '-%d.png'
                 // first do PNG
                 switch (webtoonRetryLogic){
                   case 0:
                     // should skip this if input file is .jpg or .jpeg (ignore case)
-                    let destFilename = fileNameNoExt + '-%d.png'
+                    destFilename = fileNameNoExt + '-%d.png'
                     splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
                       ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
                     break;
                   
                   // PNG is too large, try JPG
                   case 1:
-                    let destFilename = fileNameNoExt + '-%d.jpg'
+                    destFilename = fileNameNoExt + '-%d.jpg'
                     splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
                       ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
                     break;
 
                   // jpeg too large, max file size each file
                   case 2:
-                    let destFilename = fileNameNoExt + '-%d.jpg'
+                    destFilename = fileNameNoExt + '-%d.jpg'
                     let maxSize = Math.floor(20459520 / splitFiles.length)
                     let maxSizeStr = "jpeg:extent=" + maxSize
                     splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
