@@ -239,15 +239,7 @@
       {
         return name;
       }
-      if(name.endsWith('.jpg'))
-      {
-        return prefix + '/'+name;
-      }
-      else if(name.endsWith('.png'))
-      {
-        return prefix + '/'+name;
-      }
-      return name;
+      return prefix + '/'+name;
     }
 
     function GenerateZip(line, tapas) {
