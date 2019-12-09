@@ -254,10 +254,10 @@
       let zip = new JSZip();
       if((line.length + tapas.length ) >0){
         for(let item of line){
-          zip.file(item.blob.name, 'webtoon')
+          zip.file(GenerateZipItemName(item.blob.name, 'webtoon'), item)
         }
         for(let item of tapas){
-          zip.file(item.blob.name, 'tapas')
+          zip.file(GenerateZipItemName(item.blob.name, 'tapas'), item)
         }
         zip.generateAsync({ type: "blob" })
           .then(function (content) {
@@ -422,7 +422,7 @@
         }
         
         GenerateZip(processedImagesLine, processedImagesTapas);
-        
+
         let processedImages = processedImagesLine;
         processedImages.push(...processedImagesTapas);
 
