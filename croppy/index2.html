@@ -350,6 +350,7 @@
         DoSomeTrack("convert_start", extension_first_file, conversion_destination);
         
         for(let webtoonRetryLogic = 0; webtoonRetryLogic < 3; ++webtoonRetryLogic){
+          let oldLineSplitCount = processedImagesLine.length
           processedImagesLine=[];
           processedImagesTapas=[];
           for (let fileIndex = 0; fileIndex < files.length; ++fileIndex) {
@@ -379,7 +380,7 @@
                   // jpeg too large, max file size each file
                   case 2:
                     destFilename = fileNameNoExt + '-%d.jpg'
-                    let maxSize = Math.floor(20459520 / splitFiles.length)
+                    let maxSize = Math.floor(20459520 / oldLineSplitCount)
                     let maxSizeStr = "jpeg:extent=" + maxSize
                     splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
                       ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-define", maxSizeStr, "-scene", "0", destFilename]);
