@@ -358,54 +358,65 @@
         }
         DoSomeTrack("convert_start", extension_first_file, conversion_destination);
         
-        
-        for (let fileIndex = 0; fileIndex < files.length; ++fileIndex) {
-          let [fileName,content] = await ReadFile(files[fileIndex]);
-          let fileNameNoExt = fileName.substring(0, fileName.lastIndexOf('.'));
-          try{
-            if (doLine.checked) {
-              // first do PNG
-              // should skip this if input file is .jpg or .jpeg (ignore case)
-              let destFilename = fileNameNoExt + '-%d.png'
-              let splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
-                ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
-              // PNG is too large, try JPG
-              if(IsTooLarge(splitFiles)){
-                [fileName,content] = await ReadFile(files[fileIndex]);
-                destFilename = fileNameNoExt + '-%d.jpg'
-                splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
-                  ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
-                
-                // jpeg too large, max file size each file
-                if(IsTooLarge(splitFiles)){
-                  [fileName,content] = await ReadFile(files[fileIndex]);
-                  let maxSize = Math.floor(20459520 / splitFiles.length)
-                  let maxSizeStr = "jpeg:extent=" + maxSize
-                  splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
-                    ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-define", maxSizeStr, "-scene", "0", destFilename]);
+        for(let webtoonRetryLogic = 0; webtoonRetryLogic < 3; ++webtoonRetryLogic){
+          processedImagesLine=[];
+          processedImagesTapas=[];
+          for (let fileIndex = 0; fileIndex < files.length; ++fileIndex) {
+            try{
+              if (doLine.checked) {
+                let [fileName,content] = await ReadFile(files[fileIndex]);
+                let fileNameNoExt = fileName.substring(0, fileName.lastIndexOf('.'));
+                // first do PNG
+                switch (webtoonRetryLogic){
+                  case 0:
+                    // should skip this if input file is .jpg or .jpeg (ignore case)
+                    let destFilename = fileNameNoExt + '-%d.png'
+                    let splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
+                      ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
+                    break;
+                  
+                  // PNG is too large, try JPG
+                  case 1:
+                    let destFilename = fileNameNoExt + '-%d.jpg'
+                    splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
+                      ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-quality", "100", "-scene", "0", destFilename]);
+                    break;
+
+                  // jpeg too large, max file size each file
+                  case 2:
+                    let destFilename = fileNameNoExt + '-%d.jpg'
+                    let maxSize = Math.floor(20459520 / splitFiles.length)
+                    let maxSizeStr = "jpeg:extent=" + maxSize
+                    splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
+                      ["convert", fileName, "-flatten", "-resize", "800", "-crop", "800x1000", "-define", maxSizeStr, "-scene", "0", destFilename]);
+                  break;
                 }
+                processedImagesLine.push(...splitFiles);
               }
-              processedImagesLine.push(...splitFiles);
+              if (doTapas.checked) {
+                let [fileName,content] = await ReadFile(files[fileIndex]);
+                let fileNameNoExt = fileName.substring(0, fileName.lastIndexOf('.'));
+                let destFilename = fileNameNoExt + '-%d.png'
+                let splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
+                ["convert", fileName, "-flatten", "-resize", ">940", "-crop", "x1280", "-quality", "100", "-scene", "0", destFilename]);
+                  processedImagesTapas.push(...splitFiles);
+              }
             }
-            if (doTapas.checked) {
-              let destFilename = fileNameNoExt + '-%d.png'
-              let splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
-              ["convert", fileName, "-flatten", "-resize", ">940", "-crop", "x1280", "-quality", "100", "-scene", "0", destFilename]);
-                processedImagesTapas.push(...splitFiles);
-            }
-          }
-          catch(e)
-          {
-            if(!failedProcessing)
+            catch(e)
             {
-              failedProcessing = true;
-              DoSomeTrack("convert_failed", extension_first_file, conversion_destination);
-              
-              AlertIt("Error croppy could not format your file, old croppy may be up to the task, hit ok to go to https://old.croppy.duckdns.org", "https://old.croppy.duckdns.org");
+              if(!failedProcessing)
+              {
+                failedProcessing = true;
+                DoSomeTrack("convert_failed", extension_first_file, conversion_destination);
+                
+                AlertIt("Error croppy could not format your file, old croppy may be up to the task, hit ok to go to https://old.croppy.duckdns.org", "https://old.croppy.duckdns.org");
+              }
+
             }
-
           }
-
+          if(!IsTooLarge(processedImagesLine) || failedProcessing){
+            break;
+          }
         }
         let processedImages = processedImagesLine;
         processedImages.push(...processedImagesTapas);
