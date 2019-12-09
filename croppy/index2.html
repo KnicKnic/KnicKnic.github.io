@@ -246,10 +246,10 @@
       let zip = new JSZip();
       if((line.length + tapas.length ) >0){
         for(let item of line){
-          zip.file(GenerateZipItemName(item.blob.name, 'webtoon'), item.blob)
+          zip.file(GenerateZipItemName(item.name, 'webtoon'), item.blob)
         }
         for(let item of tapas){
-          zip.file(GenerateZipItemName(item.blob.name, 'tapas'), item.blob)
+          zip.file(GenerateZipItemName(item.name, 'tapas'), item.blob)
         }
         zip.generateAsync({ type: "blob" })
           .then(function (content) {
