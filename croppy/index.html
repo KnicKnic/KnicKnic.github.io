@@ -317,6 +317,11 @@
       if (answer)
       window.location=destination;
     }
+    function IsJpeg(extension){
+      extension = extension.toLowerCase()
+      return extension == "jpeg" || extension == "jpg"
+    }
+
     // handle new images to process
     var control = document.getElementById("your-files");
     var processFiles = async function () {
@@ -359,6 +364,9 @@
                 let [fileName,content] = await ReadFile(files[fileIndex]);
                 let fileNameNoExt = fileName.substring(0, fileName.lastIndexOf('.'));
                 let splitFiles = []
+                if(webtoonRetryLogic == 0 && IsJpeg(extension_first_file)){
+                  webtoonRetryLogic =1; //skip attempting to do png
+                }
                 
                 let destFilename = fileNameNoExt + '-%d.png'
                 // first do PNG
@@ -392,8 +400,11 @@
                 let [fileName,content] = await ReadFile(files[fileIndex]);
                 let fileNameNoExt = fileName.substring(0, fileName.lastIndexOf('.'));
                 let destFilename = fileNameNoExt + '-%d.png'
+                if(IsJpeg(extension_first_file)){
+                  destFilename = fileNameNoExt + '-%d.jpg'
+                }
                 let splitFiles = await Magick.Call([{'name': fileName, 'content':content}],
-                ["convert", fileName, "-flatten", "-resize", ">940", "-crop", "x1280", "-quality", "100", "-scene", "0", destFilename]);
+                  ["convert", fileName, "-flatten", "-resize", ">940", "-crop", "x1280", "-quality", "100", "-scene", "0", destFilename]);
                   processedImagesTapas.push(...splitFiles);
               }
             }

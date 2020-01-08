@@ -111,6 +111,10 @@
             // is total greater than 19.5MB
             return total > 20459520 
         }
+        function IsJpeg(extension){
+            extension = extension.toLowerCase()
+            return extension == "jpeg" || extension == "jpg"
+        }
 
         var processesFiles = async function (files, site) {
 
@@ -146,6 +150,11 @@
                             if (site == 'Line') {
                                 let destFilename = fileNameNoExt + '-%d.jpg'
                                 let splitFiles = []
+
+                                if(webtoonRetryLogic == 0 && IsJpeg(extension_first_file)){
+                                    webtoonRetryLogic =1; //skip attempting to do png
+                                }
+                                
                                 switch (webtoonRetryLogic){
                                     case 0:
                                         // should skip this if input file is .jpg or .jpeg (ignore case)
@@ -173,6 +182,9 @@
                                 processedImages.push(...splitFiles);
                             } else if (site == 'Tapas') {
                                 let destFilename = fileNameNoExt + '-%d.png'
+                                if(IsJpeg(extension_first_file)){
+                                    destFilename = fileNameNoExt + '-%d.jpg'
+                                }
                                 let splitFiles = await Magick.Call([{ 'name': fileName, 'content': content }],
                                     ["convert", fileName, "-flatten", "-resize", ">940", "-crop", "x1280", "-quality", "100", "-scene", "0", destFilename]);
                                 processedImages.push(...splitFiles);
