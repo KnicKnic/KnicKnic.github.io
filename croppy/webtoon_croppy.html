@@ -235,7 +235,12 @@
         }
         window.addEventListener('message', receiveRequestMessage, false);
         // toastr.info('Loaded croppy extension');
-        alert('Loaded croppy extension for Webtoons & Tapas.');
+        if(window.location.hostname == 'tapas.io'){
+        alert('Loaded croppy extension for Tapas.');
+        }
+        else{
+            alert("This website is not supported.");
+        }
     </script>
 </body>
 
