@@ -3814,7 +3814,7 @@ let currentJavascriptURL = './magickApi.js';
     // Pulling the filename from the 3rd callsite of the stacktrace to get the full path
     // to the module. The first index is inconsitent across browsers and does not return 
     // the full path in Safari and resuls in the worker failing to reslolve. 
-    currentJavascriptURL = stacktrace$$1[2].fileName;
+    currentJavascriptURL = stacktrace$$1[0].fileName;
 }
 const magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js');
 function GenerateMagickWorkerText(magickUrl) {
