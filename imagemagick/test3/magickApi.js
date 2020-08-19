@@ -3807,15 +3807,45 @@ let currentJavascriptURL = './magickApi.js';
 // } catch (error) {
 //   // eat
 // }
-function GetCurrentFileURLHelper3() {
-    // 3rd callsite didn't work, so I made this complicated maze of helpers.. 
 
-    // Pulling the filename from the 3rd callsite of the stacktrace to get the full path
+function GenerateStackAndGetPathAtDepth(depth){
+    try {
+      let stacktrace$$1 = stacktrace.getSync();
+      let filePath = stacktrace$$1[depth].fileName;
+      
+      // if the stack trace code doesn't return a path separator
+      if(filePath !== undefined && filePath.indexOf('/') === -1 && filePath.indexOf('\\') === -1){
+        return undefined
+      }
+      return filePath
+  
+    } catch (error) {
+      return undefined
+    }
+}
+
+function GetCurrentFileURLHelper3() {
+    // 3rd call site didn't work, so I made this complicated maze of helpers.. 
+
+    // Pulling the filename from the 3rd call site of the stacktrace to get the full path
     // to the module. The first index is inconsistent across browsers and does not return 
     // the full path in Safari and results in the worker failing to resolve. 
-    let stacktrace$$1 = stacktrace.getSync();
-    return stacktrace$$1[2].fileName;
+
+    // I am preferring to do depth 0 first, as that will ensure people that do minification still works
+
+    let filePath = GenerateStackAndGetPathAtDepth(0)
+    if(filePath === undefined){
+      filePath = GenerateStackAndGetPathAtDepth(2)
+    }
+
+    // if the stack trace code messes up 
+    if(filePath === undefined){
+      filePath = './magickApi.js';
+    }
+
+    return filePath
 }
+
 function GetCurrentFileURLHelper2() {
     return GetCurrentFileURLHelper3();
 }
@@ -3826,7 +3856,6 @@ function GetCurrentFileURL() {
     return GetCurrentFileURLHelper1();
 }
 {
-    currentJavascriptURL = GetCurrentFileURL();
 }
 const magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js');
 function GenerateMagickWorkerText(magickUrl) {
