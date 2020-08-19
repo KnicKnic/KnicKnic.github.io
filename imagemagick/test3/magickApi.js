@@ -3791,8 +3791,8 @@ function ChangeUrl(url, fileName) {
     splitUrl[splitUrl.length - 1] = fileName;
     return splitUrl.join('/');
 }
-function GetCurrentUrlDifferentFilename(fileName) {
-    return ChangeUrl(currentJavascriptURL, fileName);
+function GetCurrentUrlDifferentFilename(currentUrl, fileName) {
+    return ChangeUrl(currentUrl, fileName);
 }
 let currentJavascriptURL = './magickApi.js';
 // // instead of doing the sane code of being able to just use import.meta.url 
@@ -3855,9 +3855,10 @@ function GetCurrentFileURLHelper1() {
 function GetCurrentFileURL() {
     return GetCurrentFileURLHelper1();
 }
-{
-}
-const magickWorkerUrl = GetCurrentUrlDifferentFilename('magick.js');
+
+currentJavascriptURL = GetCurrentFileURL();
+
+const magickWorkerUrl = GetCurrentUrlDifferentFilename(currentJavascriptURL, 'magick.js');
 function GenerateMagickWorkerText(magickUrl) {
     // generates code for the following
     // var magickJsCurrentPath = 'magickUrl';
