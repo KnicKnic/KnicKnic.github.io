@@ -3809,12 +3809,12 @@ let currentJavascriptURL = './magickApi.js';
 // }
 function GetCurrentFileURLHelper3() {
     // 3rd callsite didn't work, so I made this complicated maze of helpers.. 
-    
+
     // Pulling the filename from the 3rd callsite of the stacktrace to get the full path
     // to the module. The first index is inconsistent across browsers and does not return 
     // the full path in Safari and results in the worker failing to resolve. 
     let stacktrace$$1 = stacktrace.getSync();
-    return stacktrace$$1[2].filename;
+    return stacktrace$$1[2].fileName;
 }
 function GetCurrentFileURLHelper2() {
     return GetCurrentFileURLHelper3();
