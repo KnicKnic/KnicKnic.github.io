@@ -264,37 +264,38 @@
       return prefix + '/'+name;
     }
 
-    async function AddPromoIfNecessary(zip){
-      if(addPromo.checked){
-        var xhr = new XMLHttpRequest();
-        let data = await new Promise(function(resolve, reject) {
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4) {
-              if (xhr.status >= 300) {
-                reject("Error, status code = " + xhr.status)
-              } else {
-                resolve(xhr.response);
-              }
+    async function GetPromoImage(){
+      var xhr = new XMLHttpRequest();
+      let data = await new Promise(function(resolve, reject) {
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4) {
+            if (xhr.status >= 300) {
+              reject("Error, status code = " + xhr.status)
+            } else {
+              resolve(xhr.response);
             }
           }
-          xhr.open('get', './promo-img.png', true)
-          xhr.responseType = "blob";
-          xhr.send();
-        });
-        
-        zip.file(GenerateZipItemName('zzzzzadd-promo-9999.png', 'webtoon'), data)
-        DoSomeTrack("added_promo", "lizz", "lizz");
+        }
+        xhr.open('get', './promo-img.png', true)
+        xhr.responseType = "blob";
+        xhr.send();
+      });
+      DoSomeTrack("added_promo", "lizz", "lizz");
+      let arrayBuff = await data.arrayBuffer()
+      return {
+        name: 'zzzzzadd-promo-9999.png',
+        buffer: new Uint8Array(arrayBuff),
+        blob: data,
       }
-    }
+  }
 
 
-    async function GenerateZip(line, tapas) {
+    function GenerateZip(line, tapas) {
       let zip = new JSZip();
       if((line.length + tapas.length ) >0){
         for(let item of line){
           zip.file(GenerateZipItemName(item.name, 'webtoon'), item.blob);
         }
-        await AddPromoIfNecessary(zip)
         for(let item of tapas){
           zip.file(GenerateZipItemName(item.name, 'tapas'), item.blob)
         }
@@ -472,7 +473,12 @@
           }
         }
         
-        await GenerateZip(processedImagesLine, processedImagesTapas);
+        if(addPromo.checked){
+          processedImagesLine.push(await GetPromoImage());
+        }
+
+        GenerateZip(processedImagesLine, processedImagesTapas);
+
 
         let processedImages = processedImagesLine;
         processedImages.push(...processedImagesTapas);
