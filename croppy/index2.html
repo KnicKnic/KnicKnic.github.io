@@ -263,7 +263,7 @@
     async function AddPromoIfNecessary(zip){
       if(doLine.checked){
         var xhr = new XMLHttpRequest();
-        data = await new Promise(function(resolve, reject) {
+        let data = await new Promise(function(resolve, reject) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
               if (xhr.status >= 300) {
