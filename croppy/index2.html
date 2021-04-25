@@ -274,6 +274,7 @@
             }
           }
           xhr.open('get', './promo-img.png', true)
+          xhr.responseType = "blob";
           xhr.send();
         });
         
