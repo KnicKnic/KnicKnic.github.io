@@ -186,18 +186,26 @@
               <input type=file name=file id="your-files" aria-label="File Input" accept=".jpg,.jpeg,.png,.bmp,.tif,.tiff,.psd" multiple>
               </p>
               <br>
-              <table cellpadding="0" cellspacing="0" border="0" style="padding: 0.5vw; border: none; max-width:100%; max-height:10%; background: transparent;">
+              <p>Checkout my friend's comic "<a href="https://www.webtoons.com/en/challenge/please-dont-eat-me/1-the-roommate/viewer?title_no=555912&episode_no=2">Please Don't Eat Me</a>", who is trying to unlock ad revenue.</p>
+
+              <a href="https://www.webtoons.com/en/challenge/please-dont-eat-me/1-the-roommate/viewer?title_no=555912&episode_no=2"> <img id='promo_logo'  height="30%" src="promo-bottom.png" alt="Title cover image for comic Please Don't Eat Me" title="Please Don't Eat Me"></a>
+                    <p>Check this box if you want to add a shout out this comic at the end of your webtoon update <input type="checkbox" name="AddPromo" id="AddPromo" value="1"/>
+                    </p>
+                    
+              
+              
+              
+                    <!-- <table cellpadding="0" cellspacing="0" border="0" style="padding: 0.5vw; vertical-align: text-top; border: none; max-width:100%; max-height:10%; background: transparent;">
                 <tr style="padding: 0.5vw; border: none; max-width:100%; max-height:10%; background: transparent;">
-                  <td style="padding: 0.5vw; border: none; max-width:100%; max-height:10%; background: transparent;">
-                    <p>Checkout my friend's comic "<a href="https://www.webtoons.com/en/challenge/please-dont-eat-me/1-the-roommate/viewer?title_no=555912&episode_no=2">Please Don't Eat Me</a>", who is trying to unlock ad revenue.</p>
-                    <p>Check this box if you want to add a shout out to the end of your comic <input type="checkbox" name="AddPromo" id="AddPromo" value="1"/></p>
+                  <td style="padding: 0.5vw; border: none; max-width:100%; max-height:10%; background: transparent; vertical-align: text-top;">
+                    
                   </td>
                   <td style="padding: 0.5vw; border: none; max-width:100%; max-height:10%; background: transparent;"> 
-                    <aside> <p>here is some more text</p><p>here is some more text x2</p></aside>
+                    <img id='promo_logo' src="promo-side.png" alt="Title cover image for comic Please Don't Eat Me" title="Please Don't Eat Me">
 
                   </td>
                 </tr>
-              </table>
+              </table> -->
         </div>
         <div>
         </div>
@@ -279,6 +287,7 @@
         });
         
         zip.file(GenerateZipItemName('zzzzzadd-promo-9999.png', 'webtoon'), data)
+        DoSomeTrack("added_promo", "lizz", "lizz");
       }
     }
 

@@ -1,12 +1,14 @@
 // version 1
 // v0
 var prefix_name = "croppy_"
-var CACHE_NAME = prefix_name + 'cache_1_49';
+var CACHE_NAME = prefix_name + 'cache_1_50';
 var cacheWhitelist = [CACHE_NAME];
 var urlsToCache = [
     './',
     './index.html',
     './index2.html',
+    './promo-bottom.png',
+    './promo-img.png',
     './images/croppy.png',
     './images/Croppy_anniver.small.png',
     './images/Croppy_ver3.small.png',
