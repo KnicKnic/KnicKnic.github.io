@@ -22,6 +22,7 @@ var urlsToCache = [
     './webtoon_croppy.html',
     'https://cdn.jsdelivr.net/g/filesaver.js',
     'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js',
+    './promo-img.png',
     //"https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"
 ];
 
